@@ -3,18 +3,32 @@
     date: 7/22
     title: hangman game
 */
-var wordDisp = document.getElementById('word');
-//function get word
-var playerWord = prompt('player 1 enter word')
 
-//function display hint
-//for length of playerWord create blanks
+//TODO: this needs to be a function to be called on button push
+var wordDisp = document.getElementById('word');
+//get word
+var playerWord = prompt('player 1 enter word');
+//TODO: validate that it is a single word with no symbols or spaces, and to uppercase 
+//create "blanks"
 for(i=0; i<playerWord.length; i++){
     wordDisp.innerHTML += '<div class="letter" id="' + playerWord[i] + '">-</input>';
 }
 
-//variable input
+var btn = document.getElementById('enter');
+btn.addEventListener('click', () =>{
+    var guess = document.getElementById('guess').value
+    var regex = new RegExp("[a-zA-Z]");
+    if(regex.test(guess)){
+        alert("true");
+        check();
+        }else{
+            alert("please input 1 letter");
+    }
+})
 
+function check(){
+    alert("check")
+}
 //check input
 //has the letter been used?
 //is the letter part of the word?
