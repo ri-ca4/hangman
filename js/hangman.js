@@ -3,27 +3,41 @@
     date: 7/22
     title: hangman game
 */
-
-//TODO: this needs to be a function to be called on button push
+var wordPrompt = document.getElementById('wordPrompt');
+var gameBoard = document.getElementById('gameBoard');
 var wordDisp = document.getElementById('word');
-var playerWord = prompt('player 1 enter word');
-//TODO: validate that it is a single word with no symbols or spaces, and to uppercase
+var wordBtn = document.getElementById('subWord');
+var playerWord;
+var letters;
+
+gameBoard.style.visibility = "hidden";
+
+wordBtn.addEventListener('click', () => {
+    var word = document.getElementById('wordInput').value;
+    var regex = /^[A-Za-z]*$/;
+    if(regex.test(word)){
+        playerWord = word.toUpperCase();
+        console.log(playerWord, 'accepted');
+        letters = playerWord.split('');//create letters array
+        //console.log(letters)
+        for(i=0; i<playerWord.length; i++){ //create "blanks"
+            wordDisp.innerHTML += '<div class="letter" id="' + playerWord[i] + '">-</input>';
+        }
+        gameBoard.style.visibility = "visible";
+        wordPrompt.style.visibility = "hidden";
+        }else{
+            alert("please input 1 word, no spaces or characters");           
+    }
+})
 
 
-for(i=0; i<playerWord.length; i++){ //create "blanks"
-    wordDisp.innerHTML += '<div class="letter" id="' + playerWord[i] + '">-</input>';
-}
 
-var letters = playerWord.split('');//create letters array
-console.log(letters)
-
-
-var btn = document.getElementById('enter');
-btn.addEventListener('click', () =>{//validate that a single letter has been provided
+var guessBtn = document.getElementById('subGuess');
+guessBtn.addEventListener('click', () =>{//validate that a single letter has been provided
     var guess = document.getElementById('guess').value
-    var regex = new RegExp("[a-zA-Z]");
+    var regex = /[a-zA-Z]/;
     if(regex.test(guess)){
-        //alert("true");
+        guess = guess.toUpperCase();
         check(guess);
         }else{
             alert("please input 1 letter");            
@@ -44,7 +58,7 @@ function check(guess){//check input
         if(letters.includes(guess)){//is the letter part of the word?
             console.log(guess + " is part of " + playerWord)
             document.getElementById(guess).innerHTML = guess;//display letter
-            
+            //Check if all letters have been guessed
         }else{
             console.log(guess + " is not part of " + playerWord)
             strikes = strikes + 1;

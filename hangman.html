@@ -18,11 +18,17 @@
         <![endif]-->
         <div id="container">
             <h1></h1>
-            <div id="hangman"></div>
-            <div id="word"></div>
-            <input type="text" id="guess" name="guess" maxlength="1">
-            <button id="enter">enter</button>
-            <div id="box"></div>
+            <div id="wordPrompt">
+                <input type="text" id="wordInput" name="wordInput">
+                <button id="subWord">enter</button>
+            </div>
+            <div id="gameBoard">
+                <div id="hangman"></div>
+                <div id="word"></div>
+                <input type="text" id="guess" name="guess" maxlength="1">
+                <button id="subGuess">enter</button>
+                <div id="box"></div>
+            </div>
         </div>
         
         <script src="js/hangman.js" async defer></script>
