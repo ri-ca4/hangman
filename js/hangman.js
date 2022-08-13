@@ -12,12 +12,11 @@ var letters;
 
 gameBoard.style.visibility = "hidden";
 
-wordBtn.addEventListener('click', () => {
+wordBtn.addEventListener('click', () => {//word input
     var word = document.getElementById('wordInput').value;
-    var regex = /^[A-Za-z]*$/;
+    var regex = /^[A-Za-z]*$/;//make sure it's one word with only letters
     if(regex.test(word)){
-        playerWord = word.toUpperCase();
-        console.log(playerWord, 'accepted');
+        playerWord = word.toUpperCase();//make letters uppercase for consistency
         letters = [...new Set(playerWord.split(''))];//create letters array
         for(i=0; i<playerWord.length; i++){ //create "blanks"
             wordDisp.innerHTML += '<div class="letter" data-val="' + playerWord[i] + '">-</div>';
@@ -47,37 +46,42 @@ var guesses = [];
 var strikes = 0;
 
 function check(guess){//check input
-    //alert(guess);
     if(guesses.includes(guess)){//has it been guessed already?
         alert(guess + " has already been guessed");
     }else{//add letter to guesses array, check if letter is in word
         guesses.push(guess);
-        console.log(guesses)
-
+    //TODO:display guesses
         if(letters.includes(guess)){//is the letter part of the word?
-            console.log(guess + " is part of " + playerWord);
             var correct = document.querySelectorAll(`[data-val="${guess}"]`);
-            console.log(correct);
-            for(i=0; i<correct.length; i++){
-                correct[i].innerHTML = guess
+            for(i=0; i<correct.length; i++){//fill in "blanks"
+                correct[i].innerHTML = guess;
             }
-            //Check if all letters have been guessed
+            //check if all letters have been guessed and trigger win
+            let checker = (arr, target) => target.every(v => arr.includes(v));
+            if(checker(guesses, letters) == true){//Check if all letters have been guessed
+                win();
+            }    
         }else{
-            console.log(guess + " is not part of " + playerWord)
-            strikes = strikes + 1;
-            console.log(strikes);
             strike()
         }
     }
 }
 
 function strike(){
+    strikes = strikes + 1;
+    if(strikes === 5){
+        loss();
+    }
     alert('you have ' + strikes + ' strikes')
-    //strike out
 }
 
 
 function win(){
     alert("winner!")
     //win
+}
+
+function loss(){
+    alert('you lost')
+    //loss
 }
