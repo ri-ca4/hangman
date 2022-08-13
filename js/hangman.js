@@ -18,16 +18,15 @@ wordBtn.addEventListener('click', () => {
     if(regex.test(word)){
         playerWord = word.toUpperCase();
         console.log(playerWord, 'accepted');
-        letters = playerWord.split('');//create letters array
-        //console.log(letters)
+        letters = [...new Set(playerWord.split(''))];//create letters array
         for(i=0; i<playerWord.length; i++){ //create "blanks"
-            wordDisp.innerHTML += '<div class="letter" id="' + playerWord[i] + '">-</input>';
+            wordDisp.innerHTML += '<div class="letter" data-val="' + playerWord[i] + '">-</div>';
         }
         gameBoard.style.visibility = "visible";
         wordPrompt.style.visibility = "hidden";
         }else{
             alert("please input 1 word, no spaces or characters");           
-    }
+        }
 })
 
 
@@ -56,8 +55,12 @@ function check(guess){//check input
         console.log(guesses)
 
         if(letters.includes(guess)){//is the letter part of the word?
-            console.log(guess + " is part of " + playerWord)
-            document.getElementById(guess).innerHTML = guess;//display letter
+            console.log(guess + " is part of " + playerWord);
+            var correct = document.querySelectorAll(`[data-val="${guess}"]`);
+            console.log(correct);
+            for(i=0; i<correct.length; i++){
+                correct[i].innerHTML = guess
+            }
             //Check if all letters have been guessed
         }else{
             console.log(guess + " is not part of " + playerWord)
