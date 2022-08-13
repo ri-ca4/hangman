@@ -1,19 +1,34 @@
 /*
     author: ri-ca4
-    date: 7/22
+    date: 8/22
     title: hangman game
 */
-var wordPrompt = document.getElementById('wordPrompt');
-var gameBoard = document.getElementById('gameBoard');
-var wordDisp = document.getElementById('word');
-var wordBtn = document.getElementById('subWord');
+
+let wordPrompt = document.getElementById('wordPrompt');
+let gameBoard  = document.getElementById('gameBoard');
+let wordDisp   = document.getElementById('word');
+let wordBtn    = document.getElementById('subWord');
+let guessBtn   = document.getElementById('subGuess');
+let wordInput  = document.getElementById('wordInput');
+let guessInput = document.getElementById('guess');
+let box        = document.getElementById('box');
+let hangman    = document.getElementById('hangman');
+
 var playerWord;
 var letters;
+var guesses = [];
+var strikes = 0;
 
 gameBoard.style.visibility = "hidden";
 
+wordInput.addEventListener("keypress", function(event){
+    if(event.key === 'Enter'){
+        wordBtn.click();
+    }
+})
+
 wordBtn.addEventListener('click', () => {//word input
-    var word = document.getElementById('wordInput').value;
+    var word = wordInput.value;
     var regex = /^[A-Za-z]*$/;//make sure it's one word with only letters
     if(regex.test(word)){
         playerWord = word.toUpperCase();//make letters uppercase for consistency
@@ -28,11 +43,14 @@ wordBtn.addEventListener('click', () => {//word input
         }
 })
 
+guessInput.addEventListener("keypress", function(event){
+    if(event.key === 'Enter'){
+        guessBtn.click();
+    }
+})
 
-
-var guessBtn = document.getElementById('subGuess');
 guessBtn.addEventListener('click', () =>{//validate that a single letter has been provided
-    var guess = document.getElementById('guess').value
+    var guess = guessInput.value
     var regex = /[a-zA-Z]/;
     if(regex.test(guess)){
         guess = guess.toUpperCase();
@@ -42,15 +60,12 @@ guessBtn.addEventListener('click', () =>{//validate that a single letter has bee
     }
 })
 
-var guesses = [];
-var strikes = 0;
-
 function check(guess){//check input
     if(guesses.includes(guess)){//has it been guessed already?
         alert(guess + " has already been guessed");
+        guessInput.value = '';
     }else{//add letter to guesses array, check if letter is in word
         guesses.push(guess);
-    //TODO:display guesses
         if(letters.includes(guess)){//is the letter part of the word?
             var correct = document.querySelectorAll(`[data-val="${guess}"]`);
             for(i=0; i<correct.length; i++){//fill in "blanks"
@@ -60,8 +75,10 @@ function check(guess){//check input
             let checker = (arr, target) => target.every(v => arr.includes(v));
             if(checker(guesses, letters) == true){//Check if all letters have been guessed
                 win();
-            }    
-        }else{
+            }
+            guessInput.value = '';
+        }else{//add letter to box and strike
+            box.innerHTML += '<div class="incorrect">' + guess + '</div>'
             strike()
         }
     }
@@ -69,19 +86,36 @@ function check(guess){//check input
 
 function strike(){
     strikes = strikes + 1;
-    if(strikes === 5){
+    if(strikes === 6){
         loss();
+    }else{
+        hangman.innerHTML += 'X'; //TODO: add hangman diagram
+        guessInput.value = '';
     }
-    alert('you have ' + strikes + ' strikes')
 }
 
-
 function win(){
-    alert("winner!")
+    alert("winner!");
+    reset()
     //win
 }
 
 function loss(){
-    alert('you lost')
+    alert('you lost');
+    reset()
     //loss
+}
+
+function reset(){//clear values and visibility
+    playerWord = '';
+    letters = [];
+    guesses = [];
+    strikes = 0;
+    wordPrompt.style.visibility = "visible";
+    gameBoard.style.visibility = "hidden";
+    wordDisp.innerHTML = '';
+    box.innerHTML = '';
+    hangman.innerHTML = '',
+    wordInput.value = '';
+    guessInput.value = '';
 }
