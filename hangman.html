@@ -17,16 +17,21 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div id="container">
-            <h1></h1>
+            <h1>Hangman Game</h1>
             <div id="wordPrompt">
-                <input type="text" id="wordInput" name="wordInput">
-                <button id="subWord">enter</button>
+                <input type="text" id="wordInput" name="wordInput" placeholder="Please Enter a Word">
+                <br>
+                <button id="subWord">ENTER</button>
             </div>
             <div id="gameBoard">
                 <div id="hangman"></div>
                 <div id="word"></div>
-                <input type="text" id="guess" name="guess" maxlength="1">
-                <button id="subGuess">enter</button>
+                <div id="guessPrompt">
+                    <input type="text" id="guess" name="guess" maxlength="1" placeholder="Enter Your Guess">
+                    <br>
+                    <button id="subGuess">ENTER</button>
+                </div>
+                <p>Incorrect Guesses:</p>
                 <div id="box"></div>
             </div>
         </div>

@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#wordPrompt{
+    padding: 1vh;
+}
+
+#hangman{
+    border: 1px solid black;
+    height: 21vh;
+}
+
+#word{
+    height: fit-content;
+}
+
+.letter{
+    display: inline-block;
+    height: fit-content;
+    width: 1rem;
+    font-size: 1.5rem;
+}
+
+#guessPrompt{
+    padding: 1vh;
+}
+
+.incorrect{
+    display: inline-block;
+    height: fit-content;
+    width: 1rem;
+    font-size: 1rem;
+}
+
