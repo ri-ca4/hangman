@@ -98,13 +98,11 @@ function strike(){
 function win(){
     alert("winner!");
     reset()
-    //win
 }
 
 function loss(){
     alert('you lost');
     reset()
-    //loss
 }
 
 function reset(){//clear values and visibility
