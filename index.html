@@ -24,7 +24,15 @@
                 <button id="subWord">ENTER</button>
             </div>
             <div id="gameBoard">
-                <div id="hangman"></div>
+                <div id="hangman">
+                    <img src="img/layer1.png" height="200px" alt="hangman">
+                    <img src="img/layer2.png" height="200px" alt="strike 1" class="strike" id="strike1" style="visibility: hidden">
+                    <img src="img/layer3.png" height="200px" alt="strike 2" class="strike" id="strike2" style="visibility: hidden">
+                    <img src="img/layer4.png" height="200px" alt="strike 3" class="strike" id="strike3" style="visibility: hidden">
+                    <img src="img/layer5.png" height="200px" alt="strike 4" class="strike" id="strike4" style="visibility: hidden">
+                    <img src="img/layer6.png" height="200px" alt="strike 5" class="strike" id="strike5" style="visibility: hidden">
+                    <img src="img/layer7.png" height="200px" alt="strike 6" class="strike" id="strike6" style="visibility: hidden">
+                </div>
                 <div id="word"></div>
                 <div id="guessPrompt">
                     <input type="text" id="guess" name="guess" maxlength="1" placeholder="Enter Your Guess">

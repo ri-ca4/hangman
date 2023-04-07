@@ -13,6 +13,7 @@ let wordInput  = document.getElementById('wordInput');
 let guessInput = document.getElementById('guess');
 let box        = document.getElementById('box');
 let hangman    = document.getElementById('hangman');
+let marks      = document.getElementsByClassName('strike');
 
 var playerWord;
 var letters;
@@ -89,7 +90,7 @@ function strike(){
     if(strikes === 6){
         loss();
     }else{
-        hangman.innerHTML += 'X'; //TODO: add hangman diagram
+        document.getElementById(`strike${strikes}`).style.visibility = "visible";
         guessInput.value = '';
     }
 }
@@ -97,13 +98,11 @@ function strike(){
 function win(){
     alert("winner!");
     reset()
-    //win
 }
 
 function loss(){
     alert('you lost');
     reset()
-    //loss
 }
 
 function reset(){//clear values and visibility
@@ -115,7 +114,9 @@ function reset(){//clear values and visibility
     gameBoard.style.visibility = "hidden";
     wordDisp.innerHTML = '';
     box.innerHTML = '';
-    hangman.innerHTML = '',
     wordInput.value = '';
     guessInput.value = '';
+    for(i=0; i<marks.length; i++){
+        marks[i].style.visibility = "hidden";
+    }
 }
